@@ -18,12 +18,6 @@ import java.awt.event.ActionEvent;
 
 public class StudentInfo extends JFrame {
 
-    String name;
-    String id;
-    String department;
-    String batch;
-    String section;
-
     private Container c;
     private JLabel headerLabel;
     private JLabel nameLabel;
@@ -38,14 +32,6 @@ public class StudentInfo extends JFrame {
     private JTextField idField;
     private JButton submitButton;
     private JButton showInfoButton;
-
-    public StudentInfo(String name, String id, String department, String batch, String section){
-        this.name = name;
-        this.id = id;
-        this.department = department;
-        this.batch = batch;
-        this.section = section;
-    }
     
     public StudentInfo(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,16 +108,15 @@ public class StudentInfo extends JFrame {
         // submit student informations
         submitButton.addActionListener(new ActionListener(){
 
-            String nameStr = String.format("%s", nameField.getText());
-            String idStr = String.format("%s", idField.getText());
-            String departmentStr = String.format("%s", departmentField.getText());
-            String batchStr = String.format("%s", batchField.getText());
-            String sectionStr = String.format("%s", sectionField.getText());
+            String name = String.format("%s", nameField.getText());
+            String id = String.format("%s", idField.getText());
+            String department = String.format("%s", departmentField.getText());
+            String batch = String.format("%s", batchField.getText());
+            String section = String.format("%s", sectionField.getText());
 
             public void actionPerformed(ActionEvent e){
                 CreateTextFile.openFile();
-                CreateTextFile.addRecords(nameStr, idStr, departmentStr, batchStr, sectionStr);
-                System.out.println(nameStr);
+                CreateTextFile.addRecords(name, id, department, batch, section);
                 CreateTextFile.closeFile();
             }
         });

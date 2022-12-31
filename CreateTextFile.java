@@ -21,7 +21,7 @@ public class CreateTextFile {
 
     public static void addRecords(String name, String id, String department, String batch, String section){
         try{
-            StudentInfo student = new StudentInfo(name, id, department, batch, section);
+            Student student = new Student(name, id, department, batch, section);
 
             studentData.writeObject(student);
             System.out.println(student.name);
