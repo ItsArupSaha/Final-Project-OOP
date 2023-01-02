@@ -2,9 +2,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 
@@ -121,12 +126,40 @@ public class StudentInfo extends JFrame {
         showInfoButton.addActionListener(new ActionListener(){
 
             public void actionPerformed(ActionEvent e){
+                Date date = new Date();
+
                 ReadTextFile.openFile();
                 ReadTextFile.readRecords();
                 ReadTextFile.closeFile();
 
-                JTable tableFrame = new JTable();
-                tableFrame.setVisible(true);
+                ArrayList<Student> details = ReadTextFile.getArrayList();
+
+                ViewData viewData= new ViewData();
+                DefaultTableModel model= (DefaultTableModel) viewData.jTable2.getModel();
+
+                DefaultTableCellRenderer renderer= new DefaultTableCellRenderer();
+                renderer.setHorizontalAlignment(SwingConstants.CENTER );
+                viewData.jTable2.getColumnModel().getColumn(0).setCellRenderer(renderer );
+                viewData.jTable2.getColumnModel().getColumn(1).setCellRenderer(renderer );
+                viewData.jTable2.getColumnModel().getColumn(2).setCellRenderer(renderer );
+                viewData.jTable2.getColumnModel().getColumn(3).setCellRenderer(renderer );
+                viewData.jTable2.getColumnModel().getColumn(4).setCellRenderer(renderer );
+                viewData.jTable2.getColumnModel().getColumn(5).setCellRenderer(renderer );
+
+                for(Student student: details){
+                    Object[] info = {student.getId(), student.getName(), student.getDepartment(), student.getBatch(), student.getSection(), date.toString()};
+                    model.addRow(info);
+                }
+
+                viewData.showTable();
+
+
+
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        viewData.setVisible(true);
+                    }
+                });
             }
         });
         // JOptionPane.showMessageDialog(null, "done");

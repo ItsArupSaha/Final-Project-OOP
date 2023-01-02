@@ -3,10 +3,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class ReadTextFile {
     
     private static ObjectInputStream input;
+    private static ArrayList<Student> list;
     
     public static void openFile(){
         try{
@@ -19,12 +21,11 @@ public class ReadTextFile {
     }
 
     public static void readRecords(){
+        list = new ArrayList<>();
         try{
             while (true){
                     Student record = (Student) input.readObject();
-
-                    // display record contents
-                    System.out.println(record.getName()+record.getId()+record.getDepartment()+record.getBatch()+record.getSection());
+                    list.add(record);
             }
         }catch (EOFException endOfFileException){
             System.out.printf("%nNo more records%n");
@@ -46,5 +47,9 @@ public class ReadTextFile {
         }catch (IOException ioException){
             System.err.println("Error closing file. Terminating.");
         }
+    }
+
+    public static ArrayList<Student> getArrayList(){
+        return list;
     }
 }
