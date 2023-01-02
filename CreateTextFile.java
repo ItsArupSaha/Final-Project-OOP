@@ -24,7 +24,6 @@ public class CreateTextFile {
             Student student = new Student(name, id, department, batch, section);
 
             studentData.writeObject(student);
-            System.out.println(student.name);
                     
         }catch(NoSuchElementException elementException){
             System.err.println("Invalid input. Please try again.");

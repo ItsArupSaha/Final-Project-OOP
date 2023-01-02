@@ -4,9 +4,8 @@ import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import javax.swing.JOptionPane;
-
 public class ReadTextFile {
+    
     private static ObjectInputStream input;
     
     public static void openFile(){
@@ -22,15 +21,13 @@ public class ReadTextFile {
     public static void readRecords(){
         try{
             while (true){
-                    StudentInfo record = (StudentInfo) input.readObject();
+                    Student record = (Student) input.readObject();
 
                     // display record contents
-                    System.out.printf("%-10d%-12s%-12s%10.2f%n",
-                    record.name, record.id,
-                    record.department, record.batch, record.section);
+                    System.out.println(record.getName()+record.getId()+record.getDepartment()+record.getBatch()+record.getSection());
             }
         }catch (EOFException endOfFileException){
-            System.out.printf("%No more records%n");
+            System.out.printf("%nNo more records%n");
 
         }catch (ClassNotFoundException classNotFoundException){
             System.err.println("Invalid object type. Terminating.");

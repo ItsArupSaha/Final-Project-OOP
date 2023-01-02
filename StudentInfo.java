@@ -1,18 +1,10 @@
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.awt.event.ActionEvent;
 
 
@@ -108,36 +100,40 @@ public class StudentInfo extends JFrame {
         // submit student informations
         submitButton.addActionListener(new ActionListener(){
 
-            String name = String.format("%s", nameField.getText());
-            String id = String.format("%s", idField.getText());
-            String department = String.format("%s", departmentField.getText());
-            String batch = String.format("%s", batchField.getText());
-            String section = String.format("%s", sectionField.getText());
-
+            @Override
             public void actionPerformed(ActionEvent e){
+                String name = String.format("%s", nameField.getText());
+                String id = String.format("%s", idField.getText());
+                String department = String.format("%s", departmentField.getText());
+                String batch = String.format("%s", batchField.getText());
+                String section = String.format("%s", sectionField.getText());
+
+
                 CreateTextFile.openFile();
                 CreateTextFile.addRecords(name, id, department, batch, section);
                 CreateTextFile.closeFile();
+
+                System.out.println(name+id+department+batch+section);
             }
         });
 
         // Read student informations
-        // showInfoButton.addActionListener(new ActionListener(){
+        showInfoButton.addActionListener(new ActionListener(){
 
-        //     public void actionPerformed(ActionEvent e){
-        //         ReadTextFile.openFile();
-        //         ReadTextFile.readRecords();
-        //         ReadTextFile.closeFile();
-        //     }
-        // });
+            public void actionPerformed(ActionEvent e){
+                ReadTextFile.openFile();
+                ReadTextFile.readRecords();
+                ReadTextFile.closeFile();
+
+                JTable tableFrame = new JTable();
+                tableFrame.setVisible(true);
+            }
+        });
         // JOptionPane.showMessageDialog(null, "done");
     }
 
     public static void main(String[] args) {
         StudentInfo frame = new StudentInfo();
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setBackground(Color.GREEN);
     }
 }

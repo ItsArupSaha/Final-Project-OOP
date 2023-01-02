@@ -15,4 +15,20 @@ public class Student implements Serializable{
         this.batch = batch;
         this.section = section;
     }
+
+    public String getName(){
+        return name;
+    }
+    public String getId(){
+        return id;
+    }
+    public String getDepartment(){
+        return department;
+    }
+    public String getBatch(){
+        return batch;
+    }
+    public String getSection(){
+        return section;
+    }
 }
